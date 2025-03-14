@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ph-tube-project</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<style>
+    .active{
+        background-color: red;
+        color: aqua;
+    };
+</style>
+
+</head>
+<body>
+    <header class="w-11/12 mx-auto mb-10">
+        <nav class="flex justify-between items-center mb-5">
+            <div class="flex gap-3 justify-center items-center">
+            <img class="w-20" src="./assets/Icon.png" alt="">
+            <p class="text-4xl "><span class="text-red-600">PH</span> tube</p>
+            </div>
+            <button class="bg-slate-200 p-3 font-bold rounded-lg">Sort by view</button>
+            <button class="bg-red-600 p-3 font-bold rounded-lg">blog</button>
+        </nav>
+        <div class="border-b-2 border-red-700"></div>
+    </header>
+    <main class="w-11/12 mx-auto">
+        <!-- button -->
+         <section id="button" class="flex justify-center items-center gap-5 mb-10">
+            <div>
+                <button onclick="loadVideos()" class=" bg-red-500 p-2 rounded-lg">All</button>
+            </div>
+
+         </section>
+
+         <!-- videos -->
+          <section id="videoContainer" class=" grid grid-cols-4 gap-5">
+       
+          </section>
+
+    </main>
+    <script src="js/index.js"></script>
+</body>
+</html>
