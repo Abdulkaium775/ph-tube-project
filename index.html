@@ -9,7 +9,7 @@
 <style>
     .active{
         background-color: red;
-        color: aqua;
+        color:white;
     };
 </style>
 
@@ -30,7 +30,7 @@
         <!-- button -->
          <section id="button" class="flex justify-center items-center gap-5 mb-10">
             <div>
-                <button onclick="loadVideos()" class=" bg-red-500 p-2 rounded-lg">All</button>
+                <button id="btn-all" onclick="loadVideos()" class=" p-2 rounded-lg">All</button>
             </div>
 
          </section>
@@ -39,6 +39,23 @@
           <section id="videoContainer" class=" grid grid-cols-4 gap-5">
        
           </section>
+
+
+
+          <!-- Open the modal using ID.showModal() method -->
+<dialog id="video_details" class="modal">
+  <div class="modal-box">
+<div id="detials">
+</div>
+    <div class="modal-action">
+      <form method="dialog">
+        <!-- if there is a button in form, it will close the modal -->
+        <button class="btn">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+
 
     </main>
     <script src="js/index.js"></script>

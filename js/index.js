@@ -2,7 +2,10 @@
 function loadCatagories() { 
     fetch('https://openapi.programming-hero.com/api/phero-tube/categories')
     .then ((res) => res.json())
-    .then ((data) => displayBtn (data.categories));
+    .then ((data) =>   displayBtn (data.categories)); 
+      
+    
+    
 
 } 
 loadCatagories() ;
@@ -13,7 +16,7 @@ function displayBtn (categories) {
     console.log(cat);
     const div = document.createElement('div');
     div.innerHTML =`
-            <button id="btn-${cat.category_id}" onclick="loadCatagoryVideos(${cat.category_id})" class=" bg-gray-200 p-2 rounded-lg"> ${cat.category} </button>
+            <button id="btn2-${cat.category_id}" onclick="loadCatagoryVideos(${cat.category_id})" class=" bg-gray-200 p-2 rounded-lg"> ${cat.category} </button>
     `;
     button.append(div);
  }
@@ -25,7 +28,11 @@ function displayBtn (categories) {
 function loadVideos(){
     fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
     .then((res) => res.json())
-    .then((data) => dispalyVideos(data.videos));
+    .then((data) => {
+      removeActive();
+      document.getElementById("btn-all").classList.add("active")
+      dispalyVideos(data.videos)
+    });
 
 }
 // loadVideos() ; 
@@ -68,6 +75,7 @@ const dispalyVideos = (videos) => {
                 <p>${video.others.views} </p>
                 </div>
               </div>
+            <button onclick="videoDetails('${video.video_id}')" class="btn btn-block bg-red-400">Show details</button>
             </div>
 
         `;
@@ -86,10 +94,47 @@ const url =`https://openapi.programming-hero.com/api/phero-tube/category/${id}`
 fetch(url)
 .then((res) => res.json())
 .then((data) => {
-  const clickbtn= document.getElementById('btn-${id}');
-  clickbtn.classList.add('active');
-  console.log(clickbtn);
+  removeActive();
+  // no active class
+  const clickBtn= document.getElementById(`btn2-${id}`) ;
+  clickBtn.classList.add('active');
   dispalyVideos(data.category)
 });
 
 } 
+
+function removeActive() {
+  const activeBtn =document.getElementsByClassName("active")
+  for (let btn of activeBtn) {
+    btn.classList.remove("active")
+  }
+}
+
+// video details
+const videoDetails=(videoId) => {
+  const url=`https://openapi.programming-hero.com/api/phero-tube/videos/${videoId}`
+  fetch(url)
+  .then((res)=>res.json)
+  .then((data)=>displayVideosDetails(data.videos));
+
+}
+
+const displayVideosDetails= (video2)=>{
+document.getElementById('video_details').showModal() ;
+const detials =document.getElementById('detials')
+detials.innerHTML=`
+<div class="card bg-base-100  shadow-sm">
+  <figure>
+ <img class="w-9/12" src="https://i.ibb.co/NTncwqH/luahg-at-pain.jpg" alt="Shoes" />
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title">Card Title</h2>
+    <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+    <div class="card-actions justify-end">
+      <button class="btn btn-primary">Buy Now</button>
+    </div>
+  </div>
+</div>
+`;
+}
+
