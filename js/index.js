@@ -1,12 +1,10 @@
+
+
 // buttton
 function loadCatagories() { 
     fetch('https://openapi.programming-hero.com/api/phero-tube/categories')
     .then ((res) => res.json())
     .then ((data) =>   displayBtn (data.categories)); 
-      
-    
-    
-
 } 
 loadCatagories() ;
 
@@ -25,8 +23,8 @@ function displayBtn (categories) {
 
 
 // videos
-function loadVideos(){
-    fetch("https://openapi.programming-hero.com/api/phero-tube/videos")
+function loadVideos(searchText = ""){
+    fetch(`https://openapi.programming-hero.com/api/phero-tube/videos?title=${searchText}` )
     .then((res) => res.json())
     .then((data) => {
       removeActive();
@@ -35,7 +33,7 @@ function loadVideos(){
     });
 
 }
-// loadVideos() ; 
+
 
 
 
@@ -47,11 +45,9 @@ const dispalyVideos = (videos) => {
            <div class="col-span-full flex flex-col items-center justify-center pt-24">
                 <img class="w-[160px]": src="./assets/Icon.png" alt="">
                 <p class="text-5xl font-bold grid grid-cols-full ">Oops!! Sorry, There is no content here</p>
-            </div>`
-           
+            </div>`    
     }
-
-     videos.forEach((video) => {
+     videos.forEach ((video) => {
         // console.log(video)
         const videoCard = document.createElement ('div');
         videoCard.innerHTML =`
@@ -71,7 +67,10 @@ const dispalyVideos = (videos) => {
 
               <div>
                 <h1 class="font-bold">${video.title} </h1>
-                <p class=" flex">${video.authors[0].profile_name} <img class="w-4" src="https://img.icons8.com/?size=48&id=98A4yZTt9abw&format=png" alt=""></p>
+                <p class="text-sm text-gray-400 flex gap-1">
+                ${video.authors[0].profile_name}
+                ${video.authors[0].verified == true ? '<img class="w-4" src="https://img.icons8.com/?size=48&id=98A4yZTt9abw&format=png" alt="">':'not verified' }  
+             </p>
                 <p>${video.others.views} </p>
                 </div>
               </div>
@@ -82,9 +81,8 @@ const dispalyVideos = (videos) => {
 
 videoContainer.append(videoCard);
         
-    });
+     });
 }
-
 
 // just video.comedy.......others
 
@@ -137,4 +135,10 @@ detials.innerHTML=`
 </div>
 `;
 }
+
+// search\
+document.getElementById('search-input').addEventListener('keyup',(e) => {
+  const intput = e.target.value ;
+  loadVideos(intput);
+})
 
